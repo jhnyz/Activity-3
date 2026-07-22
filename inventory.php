@@ -21,14 +21,15 @@ if ($_SeERVER['REQUEST_METHOD'] === 'POST') {
         $price = (float)$_POST['price'];
         $supplier = $conn->real_escape_string($_POST['supplier']);
 
+        if ($product_name === $product_name && $category === $category && $quantity === $quantity && $price === $price && $supplier === $supplier) {
+            $errors[] = "No duplicate products allowed.";
+            }
+
         $sql = "INSERT INTO products (product_name, category, quantity, price, supplier) 
                 VALUES ('$product_name', '$category', $quantity, $price, '$supplier')";
 
         if ($conn->query($sql) === TRUE) {
             echo "New product added successfully.<br>";
-            if ($product_name === $product_name && $category === $category && $quantity === $quantity && $price === $price && $supplier === $supplier) {
-                $errors[] = "No duplicate products allowed.";
-            }
             if (empty($product_name) && ($product_name) < 5) {
                 $errors[] = "Product Name is required.";
             }
