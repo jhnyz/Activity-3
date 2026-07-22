@@ -83,6 +83,29 @@ if ($_SeERVER['REQUEST_METHOD'] === 'POST') {
 
         <input type="submit" value="Add Product">
     </form>
+    <h3>Product List</h3>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Supplier</th>
+        </tr>
+        <?php
+        $result = $conn->query("SELECT * FROM products");
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td>" . $row['id'] . "</td>";
+            echo "<td>" . $row['product_name'] . "</td>";
+            echo "<td>" . $row['category'] . "</td>";
+            echo "<td>" . $row['quantity'] . "</td>";
+            echo "<td>" . $row['price'] . "</td>";
+            echo "<td>" . $row['supplier'] . "</td>";
+            echo "</tr>";
+        }
+        ?>
     
 </body>
 </html>
