@@ -1,5 +1,6 @@
 <?php
-error_reporting(E_ALL);
+try{
+    error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 $servername = "localhost";
@@ -21,15 +22,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $price = (float)$_POST['price'];
         $supplier = $conn->real_escape_string($_POST['supplier']);
 
-        if ($product_name === $product_name && $category === $category && $quantity === $quantity && $price === $price && $supplier === $supplier) {
-            $errors[] = "No duplicate products allowed.";
-            }
 
         $sql = "INSERT INTO products (product_name, category, quantity, price, supplier) 
                 VALUES ('$product_name', '$category', $quantity, $price, '$supplier')";
+        
 
         if ($conn->query($sql) === TRUE) {
+            echo "New product added successfully.<br>";
+            
+            if ($product_name === $product_name && $category === $category && $quantity === $quantity && $price === $price && $supplier === $supplier) {
+                $errors[] = "No duplicate products allowed.";
+                 }
 
+            
             if (empty($product_name) && ($product_name) < 5) {
                 $errors[] = "Product Name is required.";
             }
@@ -49,11 +54,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $errors[] = "Enter a valid supplier name.";
             }
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Error: Duplicate Product. " . $sql . "<br>" . $conn->error;
         }
     } else {
         echo "Form data is incomplete.<br>";
     }
+}
+
+}catch(Exception $e){
+    echo "Error: " . $e->getMessage();
 }
 
 ?>
