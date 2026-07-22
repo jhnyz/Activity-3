@@ -82,6 +82,7 @@ if ($_SeERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" id="supplier" name="supplier" required><br><br>
 
         <input type="submit" value="Add Product">
+    </form>
     
 </body>
 </html>
