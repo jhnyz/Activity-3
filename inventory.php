@@ -13,7 +13,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-if ($_SeERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['product_name'], $_POST['category'], $_POST['quantity'], $_POST['price'], $_POST['supplier'])) {
         $product_name = $conn->real_escape_string($_POST['product_name']);
         $category = $conn->real_escape_string($_POST['category']);
@@ -29,7 +29,7 @@ if ($_SeERVER['REQUEST_METHOD'] === 'POST') {
                 VALUES ('$product_name', '$category', $quantity, $price, '$supplier')";
 
         if ($conn->query($sql) === TRUE) {
-            echo "New product added successfully.<br>";
+
             if (empty($product_name) && ($product_name) < 5) {
                 $errors[] = "Product Name is required.";
             }
